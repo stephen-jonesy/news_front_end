@@ -33,7 +33,7 @@ function Articles() {
     }
     
     return ( 
-        <section className={`articles container mt-2 ${isLoading === false ? "display-enabled" : ""}`}>
+        <section className={`articles container mt-2`}>
             <h2>articles</h2>
             <div className="row g-3">
                 {

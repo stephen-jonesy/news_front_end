@@ -4,7 +4,7 @@ function ArticleItem() {
     const { article_id } = useParams(); 
     console.log(article_id);
     return ( 
-        <article>
+        <article className="container">
             Single article page
         </article>
 
