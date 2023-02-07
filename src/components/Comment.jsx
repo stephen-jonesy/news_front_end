@@ -1,6 +1,7 @@
 import { Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getUserByNameAPI } from "../utils/api";
+import "../scss/Comment.scss";
 
 function Comment({comment}) {
     const [user, setUser] = useState();
@@ -22,10 +23,13 @@ function Comment({comment}) {
         ); 
     }
     return (  
-        <li className="card p-3 mb-3" key={comment.comment_id}>
-            <div className="author-image" style={{backgroundImage: `url(${user.avatar_url})`}}></div>
+        <li className="comment card p-3 mb-3" key={comment.comment_id}>
+            <section className="d-flex">
+                <div className="comment-icon" style={{backgroundImage: `url(${user.avatar_url})`}}></div>
+                <h3 className="ms-2">{user.username}</h3>
+            </section>
 
-            <h3>{user.username}</h3>
+            
             <p>{comment.body}</p>
         
         </li>

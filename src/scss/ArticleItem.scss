@@ -1,18 +1,33 @@
 
-.article-header {
-    height: 240px;
-    width: 100%;
-    background-color: gray;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover; 
-}
+.article-item {
+    .article-header {
+        height: 240px;
+        width: 100%;
+        background-color: gray;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover; 
+    }
+    
+    .author-image {
+        height: 20px;
+        width: 20px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover; 
+        border-radius: 100%;
+    }
 
-.author-image {
-    height: 120px;
-    width: 120px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover; 
-    border-radius: 100%;
+    .article-by-container {
+
+        p {
+            margin: 0 !important;
+        }
+    }
+
+    .card-details {
+        font-size: 12px;
+        justify-content: space-between;
+    }
+
 }
