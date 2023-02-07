@@ -4,13 +4,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/js/bootstrap.min.js";
 import { ArticlesProvider } from './articlesContext';
+import { BrowserRouter } from 'react-router-dom';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ArticlesProvider>
-      <App />
+      <BrowserRouter >
+        <App />
+
+      </BrowserRouter>
 
     </ArticlesProvider>
   </React.StrictMode>

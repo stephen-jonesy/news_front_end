@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Header() {
     const [showNav, setShowNav] = useState(false);
@@ -6,7 +7,7 @@ function Header() {
     return (  
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container">
-            <a className="navbar-brand" href="#">Navbar</a>
+            <Link to={`/`} className="navbar-brand" >News App</Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onClick={() => setShowNav(!showNav)}>
                 <span className="navbar-toggler-icon"></span>
             </button>
