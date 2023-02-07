@@ -1,8 +1,9 @@
 import { Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getArticleAuthorAPI, getSingleArticleAPI } from "../utils/api";
+import { getUserByNameAPI, getSingleArticleAPI } from "../utils/api";
 import '../scss/ArticleItem.scss';
+import Comments from "./Comments";
 
 function ArticleItem() {
     const { article_id } = useParams(); 
@@ -15,7 +16,7 @@ function ArticleItem() {
         .then((article) => {
             setArticle(article);
             setIsLoading(false);
-            return getArticleAuthorAPI(article.author)
+            return getUserByNameAPI(article.author)
         })
         .then((user) => {
             setAuthor(user);
@@ -53,6 +54,7 @@ function ArticleItem() {
                     </section>
                 </div>
             </section>
+            <Comments articleId={article.article_id} />
     
         </article>
 

@@ -1,27 +1,33 @@
 
 import axios from 'axios';
 
-const productsAPI = axios.create({
+const newsAPI = axios.create({
     baseURL: `https://news-server-zfky.onrender.com/api`
 })
 
 export const getArticlesAPI = () => {
-    return productsAPI.get(`/articles`).then((res)=> {
+    return newsAPI.get(`/articles`).then((res)=> {
         
         return res.data.articles;
     })
 }
 
 export const getSingleArticleAPI = (article_id) => {
-    return productsAPI.get(`/articles/${article_id}`).then((res)=> {
+    return newsAPI.get(`/articles/${article_id}`).then((res)=> {
         
         return res.data.article;
     })
 }
 
-export const getArticleAuthorAPI = (author) => {
-    return productsAPI.get(`/users/${author}`).then((res)=> {
+export const getUserByNameAPI = (author) => {
+    return newsAPI.get(`/users/${author}`).then((res)=> {
         return res.data.user;
+    })
+}
+
+export const getCommentsByArticle = (articleId) => {
+    return newsAPI.get(`/articles/${articleId}/comments`).then((res)=> {
+        return res.data.comments;
     })
 }
 
