@@ -11,3 +11,11 @@ export const getArticlesAPI = () => {
         return res.data.articles;
     })
 }
+
+export const getSingleArticleAPI = (article_id) => {
+    console.log(article_id);
+    return productsAPI.get(`/articles/${article_id}`).then((res)=> {
+        
+        return res.data.article;
+    })
+}
