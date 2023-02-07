@@ -6,6 +6,8 @@ import ArticleCards from "./ArticleCard";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useState } from "react";
+import '../scss/Articles.scss';
+
 
 function Articles() {
     const {articles, setArticles} = useContext(ArticlesContext)

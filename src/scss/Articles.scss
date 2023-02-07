@@ -1,0 +1,10 @@
+.articles {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.display-enabled {
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+  

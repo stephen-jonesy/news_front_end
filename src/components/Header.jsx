@@ -14,17 +14,11 @@ function Header() {
             <div className={`collapse navbar-collapse justify-content-end ${showNav === true ? "show" : ""}`}id="navbarNav">
                 <ul className="navbar-nav">
                 <li className="nav-item active">
-                    <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="#">Features</a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="#">Pricing</a>
+                    <a className="nav-link" href="#">Home</a>
                 </li>
                 <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+            Topics
           </a>
           <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ margin: 0 }}>
             <li><a className="dropdown-item" href="#">Action</a></li>

@@ -6,12 +6,11 @@ body {
   box-sizing: border-box;
 }
 
-.articles {
-  opacity: 0;
-  transition: all 1s ease-in-out;
+a {
+  all: unset;
 }
 
-.display-enabled {
-  opacity: 1;
-  transition: all 1s ease-in-out;
+a:hover {
+  cursor: pointer;
 }
+
