@@ -6,6 +6,8 @@ import ArticleCards from "./ArticleCard";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useState } from "react";
+import '../scss/Articles.scss';
+
 
 function Articles() {
     const {articles, setArticles} = useContext(ArticlesContext)
@@ -31,7 +33,7 @@ function Articles() {
     }
     
     return ( 
-        <section className={`articles container mt-2 ${isLoading === false ? "display-enabled" : ""}`}>
+        <section className={`articles container mt-2`}>
             <h2>articles</h2>
             <div className="row g-3">
                 {
