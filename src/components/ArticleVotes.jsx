@@ -20,10 +20,10 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 function ArticleVotes({votes, updateArticleVote}) {
 
     const [buttonClicked, setButtonClicked] = useState("");
-    
+
     const clickHandler = (e) => {
         setButtonClicked(e.target.name);
-        updateArticleVote(e.target.name, e.target.value)
+        updateArticleVote(e.target.name, e.target.value);
 
     }
 

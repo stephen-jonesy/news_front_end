@@ -7,12 +7,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useState } from "react";
 import '../scss/Articles.scss';
+import { Button, ButtonGroup } from "@mui/material";
 
 
 function Articles() {
     const {articles, setArticles} = useContext(ArticlesContext)
     const [isLoading, setIsLoading] = useState(true);
-
+    const buttons = [
+        <Button key="one">One</Button>,
+        <Button key="two">Two</Button>,
+    ];
     useEffect(() => {
         getArticlesAPI()
         .then((articles) => {
@@ -33,8 +37,14 @@ function Articles() {
     }
     
     return ( 
-        <section className={`articles container mt-2`}>
-            <h2>articles</h2>
+        <section className={`articles container p-3 mt-5`}>
+            <div className="articles-header-container mb-3">
+                <h2 className="ms-3 mb-43">Latest articles</h2>
+                <ButtonGroup aria-label="medium button group" className="me-3">
+                    {buttons}
+                </ButtonGroup>
+            </div>
+
             <div className="row g-3">
                 {
                     articles.map((article => {
