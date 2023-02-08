@@ -6,16 +6,6 @@ function ArticleVotes({votes, updateArticleVote}) {
 
     const clickHandler = (e) => {
         updateArticleVote(e.target.name, e.target.value)
-        e.currentTarget.disabled = true;
-        if (e.target.name === "increment") {
-            setIncramentButtonToggle(true)
-            setDecrementButtonToggle(false)
-            
-        }
-        else {
-            setDecrementButtonToggle(true)
-            setIncramentButtonToggle(false)
-        }
 
     }
 
