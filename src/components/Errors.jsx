@@ -1,10 +1,20 @@
 import { useContext, useEffect } from "react";
 import { ErrorContext } from "../errorContext";
 import "../scss/Errors.scss"
+import CloseIcon from '@mui/icons-material/Close';
 
 function Errors() {
     const {errors, setErrors} = useContext(ErrorContext);
     console.log(errors);
+
+    const clickHandler = (id) => {
+        
+        setErrors(()=> {
+            return errors.filter((error)=> {
+                return error.id !== id;
+            })
+        })
+    }
 
     if (errors.length === 0) {
         return
@@ -13,9 +23,11 @@ function Errors() {
         <ul className="errors">
             {errors.map((error)=> {
                 return(
-                    <li key={error.id} className="alert alert-danger" role="alert">
-                        Error {error.status}: {error.message}
-                    
+                    <li key={error.id} className="alert alert-danger d-flex" role="alert">
+                        <p>Error {error.status}: {error.message}</p>
+                        <button onClick={() => clickHandler(error.id)}>
+                            <CloseIcon />
+                        </button>
                     </li>
                 )
 

@@ -34,7 +34,7 @@ export const getCommentsByArticle = (articleId) => {
 
 export const patchArticleVotes = (articleId, direction) => {
     const accumulator = direction === "decrement" ? -1 : 1;
-    return newsAPI.patch(`/articles/${articleId}`, { "stuff": accumulator })
+    return newsAPI.patch(`/articles/${articleId}`, { "inc_votes": accumulator })
     .then((res)=> {
         return res.data.article;
     })
