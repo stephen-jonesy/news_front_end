@@ -27,12 +27,20 @@ function Comments({articleId}) {
             <section className="container mt-4">
                 <h2>Comments</h2>
                 <ul className="mt-4">
-                    {comments.map(comment => {
-                        return (
-                            <Comment key={comment.comment_id} comment={comment} setIsLoading={setIsLoading}/>
-                        )
+                    {comments.length === 0 ? 
+                        <p>
+                            There are no comments yet. Post one and be the first!
+                        </p>
+                        :
+                        comments.map(comment => {
+                            return (
+                                <Comment key={comment.comment_id} comment={comment} setIsLoading={setIsLoading}/>
+                            )
+    
+                        })
 
-                    })}
+                    }
+
                 </ul>
             </section>
 
