@@ -2,7 +2,9 @@
 import axios from 'axios';
 
 const newsAPI = axios.create({
-    baseURL: `https://news-server-zfky.onrender.com/api`
+    baseURL: `https://news-server-zfky.onrender.com/api`,
+    timeout: 10000,
+    header: { 'Content-type': 'application/json'}
 })
 
 export const getArticlesAPI = () => {
@@ -31,4 +33,11 @@ export const getCommentsByArticle = (articleId) => {
     })
 }
 
+export const patchArticleVotes = (articleId, direction) => {
+    const accumulator = direction === "decrement" ? -1 : 1;
+    return newsAPI.patch(`/articles/${articleId}`, { "inc_votes": accumulator })
+    .then((res)=> {
+        return res.data.article;
+    })
+}
 

@@ -1,9 +1,10 @@
 import { Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getUserByNameAPI, getSingleArticleAPI } from "../utils/api";
+import { getUserByNameAPI, getSingleArticleAPI, patchArticleVotes } from "../utils/api";
 import '../scss/ArticleItem.scss';
 import Comments from "./Comments";
+import ArticleVotes from "./ArticleVotes";
 
 function ArticleItem() {
     const { article_id } = useParams(); 
@@ -24,6 +25,26 @@ function ArticleItem() {
         })
         
     }, []);
+
+    const updateArticleVote = (direction, votes) => {
+        let votesInt = parseInt(votes)
+        setArticle((PreviousState)=> {
+            return {...article, votes: 
+                direction === "increment" 
+                ?
+                votesInt + 1
+                :
+                votesInt - 1
+
+            
+            }
+        })
+        patchArticleVotes(article_id, direction)
+        .then((article)=> {
+            console.log(article);
+        })
+
+    }
 
     if(isLoading === true) {
         return (
@@ -68,17 +89,7 @@ function ArticleItem() {
 
                             </section>
                         </div>
-                        <ul className="p-3 list-group">
-                            <li className="list-group-item p-3 d-flex">
-
-                                <p className="mb-0">Article votes:</p>
-
-                                <p>{article.votes}</p>
-
-                            </li>
-
-
-                        </ul>
+                        <ArticleVotes votes={article.votes} updateArticleVote={updateArticleVote} />
                     </section>    
                     <section className="col-md-4 col-12">
                        <h2 className="mt-3">Related Articles</h2>
