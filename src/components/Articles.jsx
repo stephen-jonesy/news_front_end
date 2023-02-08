@@ -7,16 +7,18 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useState } from "react";
 import '../scss/Articles.scss';
-import { Button, ButtonGroup } from "@mui/material";
+import {FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 
 function Articles() {
     const {articles, setArticles} = useContext(ArticlesContext)
     const [isLoading, setIsLoading] = useState(true);
-    const buttons = [
-        <Button key="one">One</Button>,
-        <Button key="two">Two</Button>,
-    ];
+    const [sort, setSort] = useState('');
+
+    const handleChange = (event) => {
+        setSort(event.target.value);
+    };
+
     useEffect(() => {
         getArticlesAPI()
         .then((articles) => {
@@ -39,10 +41,22 @@ function Articles() {
     return ( 
         <section className={`articles container p-3 mt-5`}>
             <div className="articles-header-container mb-3">
-                <h2 className="ms-3 mb-43">Latest articles</h2>
-                <ButtonGroup aria-label="medium button group" className="me-3">
-                    {buttons}
-                </ButtonGroup>
+                <h2 className="ms-3 mb-4 pt-2">Latest articles</h2>
+                <FormControl sx={{ m: 1, minWidth: 120 }} size="small" className="me-3">
+                    <InputLabel id="demo-simple-select-label">Sort</InputLabel>
+                    <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={sort}
+                    label="Sort"
+                    onChange={handleChange}
+                    >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                </FormControl>
+
             </div>
 
             <div className="row g-3">
