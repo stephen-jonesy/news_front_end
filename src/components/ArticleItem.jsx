@@ -1,13 +1,16 @@
 import { Box, CircularProgress } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getUserByNameAPI, getSingleArticleAPI, patchArticleVotes } from "../utils/api";
 import '../scss/ArticleItem.scss';
 import Comments from "./Comments";
 import ArticleVotes from "./ArticleVotes";
+import { ErrorContext } from "../errorContext";
 
 function ArticleItem() {
     const { article_id } = useParams(); 
+    const {errors, setErrors} = useContext(ErrorContext);
+
     const [isLoading, setIsLoading] = useState(true);
     const [article, setArticle] = useState({});
     const [author, setAuthor] = useState({});
@@ -28,20 +31,39 @@ function ArticleItem() {
 
     const updateArticleVote = (direction, votes) => {
         let votesInt = parseInt(votes)
-        setArticle((PreviousState)=> {
+        setArticle(()=> {
             return {...article, votes: 
                 direction === "increment" 
                 ?
                 votesInt + 1
                 :
                 votesInt - 1
-
             
             }
         })
         patchArticleVotes(article_id, direction)
         .then((article)=> {
             console.log(article);
+        })
+        .catch((err) => {
+            console.log(err.response.status);
+            setErrors((previousState)=> {
+                return [
+                    ...previousState,
+                    {
+                        id: previousState + 1,
+                        message: err.response.data.message,
+                        status: err.response.status
+                    }
+                    
+                ]
+            })
+            setArticle(()=> {
+                return {...article, votes: votesInt
+                
+                }
+            })
+
         })
 
     }
