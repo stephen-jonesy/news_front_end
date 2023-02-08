@@ -42,11 +42,7 @@ function ArticleItem() {
             }
         })
         patchArticleVotes(article_id, direction)
-        .then((article)=> {
-            console.log(article);
-        })
         .catch((err) => {
-            console.log(err.response.status);
             setErrors((previousState)=> {
                 return [
                     ...previousState,

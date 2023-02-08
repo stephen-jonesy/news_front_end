@@ -5,7 +5,6 @@ import CloseIcon from '@mui/icons-material/Close';
 
 function Errors() {
     const {errors, setErrors} = useContext(ErrorContext);
-    console.log(errors);
 
     const clickHandler = (id) => {
         
