@@ -17,7 +17,6 @@ function Articles() {
     const [sort, setSort] = useState('');
     let [searchParams, setSearchParams] = useSearchParams();
     const sortByQuery = searchParams.get('topic'); 
-    console.log(articles);
     const handleChange = (event) => {
         setSort(event.target.value);
     };
@@ -45,7 +44,17 @@ function Articles() {
     return ( 
         <section className={`articles container p-3 mt-5`}>
             <div className="articles-header-container mb-3">
-                <h2 className="ms-3 mb-4 pt-2">Latest articles</h2>
+                <h2 className="ms-3 mb-4 pt-2">
+                    {
+                        sortByQuery
+                        ?
+                        `Articles by topic: ${sortByQuery}`
+                        :
+                        "Latest articles"
+                    }
+                    
+                
+                </h2>
                 <FormControl sx={{ m: 1, minWidth: 120 }} size="small" className="me-3">
                     <InputLabel id="demo-simple-select-label">Sort</InputLabel>
                     <Select
