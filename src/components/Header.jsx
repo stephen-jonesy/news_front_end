@@ -6,7 +6,6 @@ import { getTopicCategories } from "../utils/api";
 function Header() {
     const [showNav, setShowNav] = useState(false);
     const [topics, settopics] = useState([]);
-    console.log(topics);
     useEffect(() => {
         getTopicCategories()
         .then((topicsArray) => {

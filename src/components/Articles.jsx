@@ -30,10 +30,6 @@ function Articles() {
             setIsLoading(false);
 
         })
-        .catch((err)=> {
-            console.log(err);
-            
-        })
         
     }, [sortByQuery]);
 
