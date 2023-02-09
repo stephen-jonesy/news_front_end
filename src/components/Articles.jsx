@@ -18,7 +18,6 @@ function Articles() {
     let [searchParams, setSearchParams] = useSearchParams();
     const topicQuery = searchParams.get('topic'); 
     const sortByQuery = searchParams.get('sort_by'); 
-    console.log(sortByQuery);
     const navigate = useNavigate();
 
     const handleChange = (event) => {
