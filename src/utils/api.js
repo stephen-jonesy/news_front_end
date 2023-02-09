@@ -6,9 +6,13 @@ const newsAPI = axios.create({
     header: { 'Content-type': 'application/json'}
 })
 
-export const getArticlesAPI = () => {
-    return newsAPI.get(`/articles`).then((res)=> {
-        
+export const getArticlesAPI = (topic) => {
+
+    return newsAPI.get(`/articles`, {
+        params: {
+            topic
+        }
+    }).then((res)=> {
         return res.data.articles;
     })
 }
@@ -47,3 +51,9 @@ export const postArticleComment = (articleId, newComment) => {
     })
 }
 
+export const getTopicCategories = () => {
+    return newsAPI.get(`topics`)
+    .then((res)=> {
+        return res.data.topics;
+    })
+}

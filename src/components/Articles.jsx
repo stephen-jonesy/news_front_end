@@ -8,26 +8,29 @@ import Box from '@mui/material/Box';
 import { useState } from "react";
 import '../scss/Articles.scss';
 import {FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useSearchParams } from "react-router-dom";
 
 
 function Articles() {
     const {articles, setArticles} = useContext(ArticlesContext)
     const [isLoading, setIsLoading] = useState(true);
     const [sort, setSort] = useState('');
-
+    let [searchParams, setSearchParams] = useSearchParams();
+    const sortByQuery = searchParams.get('topic'); 
     const handleChange = (event) => {
         setSort(event.target.value);
     };
 
     useEffect(() => {
-        getArticlesAPI()
+        getArticlesAPI(sortByQuery?.toLowerCase())
         .then((articles) => {
+
             setArticles(articles);
             setIsLoading(false);
 
-        });
+        })
         
-    }, []);
+    }, [sortByQuery]);
 
     if(isLoading === true) {
         return (
@@ -41,7 +44,17 @@ function Articles() {
     return ( 
         <section className={`articles container p-3 mt-5`}>
             <div className="articles-header-container mb-3">
-                <h2 className="ms-3 mb-4 pt-2">Latest articles</h2>
+                <h2 className="ms-3 mb-4 pt-2">
+                    {
+                        sortByQuery
+                        ?
+                        `Articles by topic: ${sortByQuery}`
+                        :
+                        "Latest articles"
+                    }
+                    
+                
+                </h2>
                 <FormControl sx={{ m: 1, minWidth: 120 }} size="small" className="me-3">
                     <InputLabel id="demo-simple-select-label">Sort</InputLabel>
                     <Select
@@ -61,10 +74,16 @@ function Articles() {
 
             <div className="row g-3">
                 {
+                    articles
+                    ?
                     articles.map((article => {
-                       return <ArticleCards key={article.article_id} article={article}/>
-                       
-                    }))
+                        return <ArticleCards key={article.article_id} article={article}/>
+                        
+                     }))
+                    :
+                    <p className="ms-3 mb-4 pt-2">Opps, Topic does not exist!</p>
+                    
+
                 }
             </div>
 

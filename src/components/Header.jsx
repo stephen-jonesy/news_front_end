@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../scss/Header.scss"
+import { getTopicCategories } from "../utils/api";
 
 function Header() {
     const [showNav, setShowNav] = useState(false);
+    const [topics, settopics] = useState([]);
+    useEffect(() => {
+        getTopicCategories()
+        .then((topicsArray) => {
+            settopics(topicsArray);
+        })
+    }, []);
 
     return (  
         <nav className="header navbar navbar-expand-lg navbar-light bg-light">
@@ -14,20 +22,9 @@ function Header() {
             </button>
             <div className={`collapse navbar-collapse justify-content-end ${showNav === true ? "show" : ""}`}id="navbarNav">
                 <ul className="navbar-nav">
-                <li className="nav-item active">
-                    <a className="nav-link" href="#">Home</a>
-                </li>
-                <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Topics
-          </a>
-          <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ margin: 0 }}>
-            <li><a className="dropdown-item" href="#">Action</a></li>
-            <li><a className="dropdown-item" href="#">Another action</a></li>
-            <li></li>
-            <li><a className="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
+                    <li className="nav-item"><Link  to={`/?topic=coding`}>Coding</Link></li>
+                    <li className="nav-item"><Link to={`/?topic=cooking`}>Cooking</Link></li>
+                    <li className="nav-item"><Link to={`/?topic=football`}>Football</Link></li>
                 </ul>
             </div>
             </div>
