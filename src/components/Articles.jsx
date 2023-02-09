@@ -12,16 +12,19 @@ import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 
 
 function Articles() {
+    let [searchParams, setSearchParams] = useSearchParams();
     const {articles, setArticles} = useContext(ArticlesContext)
     const [isLoading, setIsLoading] = useState(true);
     const [sort, setSort] = useState('');
-    let [searchParams, setSearchParams] = useSearchParams();
+    const [order, setOrder] = useState('desc');
     const topicQuery = searchParams.get('topic'); 
     const sortByQuery = searchParams.get('sort_by'); 
     const navigate = useNavigate();
 
-    const handleChange = (event) => {
+    const handleSortChange = (event) => {
         setSort(event.target.value);
+        setOrder("desc");
+
         return navigate(
             topicQuery
             ?
@@ -32,8 +35,12 @@ function Articles() {
         );
     };
 
+    const handleOrderChange = (event) => {
+        setOrder(event.target.value);
+    }
+
     useEffect(() => {
-        getArticlesAPI(topicQuery?.toLowerCase(), sortByQuery)
+        getArticlesAPI(topicQuery?.toLowerCase(), sortByQuery, order)
         .then((articles) => {
 
             setArticles(articles);
@@ -43,9 +50,9 @@ function Articles() {
 
             }
 
-        })
+        });
         
-    }, [topicQuery, sortByQuery]);
+    }, [topicQuery, sortByQuery, order]);
 
     if(isLoading === true) {
         return (
@@ -70,7 +77,8 @@ function Articles() {
                     
                 
                 </h2>
-                <FormControl sx={{ m: 1, minWidth: 120 }} size="small" className="me-3">
+                <div className="d-flex">
+                <FormControl sx={{ m: 1, minWidth: 120 }} size="small" className="sort-form me-3">
                     <div>
                     <InputLabel id="demo-simple-select-label">Sort</InputLabel>
                     <Select
@@ -78,7 +86,7 @@ function Articles() {
                     id="demo-simple-select"
                     value={sort}
                     label="Sort"
-                    onChange={handleChange}
+                    onChange={handleSortChange}
                     sx={{width: "120px"}}
                     >
                     <MenuItem value={"votes"} type="submit">
@@ -93,8 +101,33 @@ function Articles() {
                     </Select>
 
                     </div>
+
                     
                 </FormControl>
+                <FormControl sx={{ m: 1, minWidth: 120 }} size="small" className="order-form me-3 d-md-flex d-none ">
+                <div>
+                    <InputLabel id="demo-simple-select-label">Order</InputLabel>
+                    <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={order}
+                    label="order"
+                    onChange={handleOrderChange}
+                    sx={{width: "120px"}}
+                    >
+                    <MenuItem value={"desc"} type="submit">
+                        Decending
+                    </MenuItem>
+                    <MenuItem value={"asc"}>
+                        Ascending
+                    </MenuItem>
+                    </Select>
+
+                    </div>
+                </FormControl>
+
+                </div>
+
 
             </div>
 
