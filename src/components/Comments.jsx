@@ -29,7 +29,7 @@ function Comments({articleId}) {
         const body = textInput;
         setNewCommentIsLoading(true);
 
-        postArticleComment({username, body})
+        postArticleComment(articleId,{username, body})
         .then((comment) => {
             console.log(comment);
             setComments((previousState)=> {
