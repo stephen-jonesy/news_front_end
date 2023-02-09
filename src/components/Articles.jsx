@@ -16,20 +16,24 @@ function Articles() {
     const [isLoading, setIsLoading] = useState(true);
     const [sort, setSort] = useState('');
     let [searchParams, setSearchParams] = useSearchParams();
-    const sortByQuery = searchParams.get('topic'); // "title"
-
+    const sortByQuery = searchParams.get('topic'); 
+    console.log(articles);
     const handleChange = (event) => {
         setSort(event.target.value);
     };
 
     useEffect(() => {
-        console.log(sortByQuery);
-        getArticlesAPI(sortByQuery)
+        getArticlesAPI(sortByQuery?.toLowerCase())
         .then((articles) => {
+
             setArticles(articles);
             setIsLoading(false);
 
-        });
+        })
+        .catch((err)=> {
+            console.log(err);
+            
+        })
         
     }, [sortByQuery]);
 
@@ -65,10 +69,16 @@ function Articles() {
 
             <div className="row g-3">
                 {
+                    articles
+                    ?
                     articles.map((article => {
-                       return <ArticleCards key={article.article_id} article={article}/>
-                       
-                    }))
+                        return <ArticleCards key={article.article_id} article={article}/>
+                        
+                     }))
+                    :
+                    <p className="ms-3 mb-4 pt-2">Opps, Topic does not exist!</p>
+                    
+
                 }
             </div>
 

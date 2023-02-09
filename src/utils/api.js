@@ -13,7 +13,6 @@ export const getArticlesAPI = (topic) => {
             topic
         }
     }).then((res)=> {
-        
         return res.data.articles;
     })
 }
@@ -52,3 +51,9 @@ export const postArticleComment = (articleId, newComment) => {
     })
 }
 
+export const getTopicCategories = () => {
+    return newsAPI.get(`topics`)
+    .then((res)=> {
+        return res.data.topics;
+    })
+}
