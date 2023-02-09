@@ -8,26 +8,30 @@ import Box from '@mui/material/Box';
 import { useState } from "react";
 import '../scss/Articles.scss';
 import {FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useSearchParams } from "react-router-dom";
 
 
 function Articles() {
     const {articles, setArticles} = useContext(ArticlesContext)
     const [isLoading, setIsLoading] = useState(true);
     const [sort, setSort] = useState('');
+    let [searchParams, setSearchParams] = useSearchParams();
+    const sortByQuery = searchParams.get('topic'); // "title"
 
     const handleChange = (event) => {
         setSort(event.target.value);
     };
 
     useEffect(() => {
-        getArticlesAPI()
+        console.log(sortByQuery);
+        getArticlesAPI(sortByQuery)
         .then((articles) => {
             setArticles(articles);
             setIsLoading(false);
 
         });
         
-    }, []);
+    }, [sortByQuery]);
 
     if(isLoading === true) {
         return (

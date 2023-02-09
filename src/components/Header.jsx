@@ -22,7 +22,7 @@ function Header() {
             Topics
           </a>
           <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ margin: 0 }}>
-            <li><a className="dropdown-item" href="#">Action</a></li>
+            <li><Link className="dropdown-item" to="/?topic=coding">Coding</Link></li>
             <li><a className="dropdown-item" href="#">Another action</a></li>
             <li></li>
             <li><a className="dropdown-item" href="#">Something else here</a></li>
