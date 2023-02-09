@@ -1,5 +1,33 @@
 
 .articles {
+    background-color: white;
+    border-radius: 30px;
 
+    @media (min-width: 1200px) {
+        h2, .h2 {
+            font-size: 1.7rem;
+            color: rgb(35, 34, 34) !important;
+        }
 
+    }
+    .card {
+        border: none !important;
+        &:hover {
+            .card-img-top {
+                transform: scale(1.02);
+            }
+        }
+    }
+    .card-body {
+        padding: 0 !important;
+    }
+    .card-img-top {
+        border-radius: 10px !important;
+    }
+
+    .articles-header-container {
+        display: flex;
+        justify-content: space-between;
+        height: 50px;
+    }
 }

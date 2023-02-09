@@ -4,6 +4,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/js/bootstrap.min.js";
 import { ArticlesProvider } from './articlesContext';
+import { ErrorProvider } from './errorContext';
 import { BrowserRouter } from 'react-router-dom';
 
 
@@ -11,12 +12,16 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ArticlesProvider>
-      <BrowserRouter >
-        <App />
+      <ErrorProvider>
+        <BrowserRouter >
+          <App />
 
-      </BrowserRouter>
+        </BrowserRouter>
+
+      </ErrorProvider>
 
     </ArticlesProvider>
+
   </React.StrictMode>
 );
 

@@ -1,0 +1,26 @@
+
+.article-votes {
+
+    display: flex;
+    justify-content: end;
+    svg {
+        pointer-events: none;
+    
+    }
+    path {
+        pointer-events: none;
+    
+    }
+    button {
+        cursor: pointer;
+        color: #262665;
+        min-width: unset;
+    }
+    p {
+        margin: auto 10px auto 0;
+    }
+
+    .vote-icon {
+        margin-right: 20px;
+    }
+}

@@ -1,12 +1,16 @@
 import { Box, CircularProgress } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getUserByNameAPI, getSingleArticleAPI } from "../utils/api";
+import { getUserByNameAPI, getSingleArticleAPI, patchArticleVotes } from "../utils/api";
 import '../scss/ArticleItem.scss';
 import Comments from "./Comments";
+import ArticleVotes from "./ArticleVotes";
+import { ErrorContext } from "../errorContext";
 
 function ArticleItem() {
     const { article_id } = useParams(); 
+    const {errors, setErrors} = useContext(ErrorContext);
+
     const [isLoading, setIsLoading] = useState(true);
     const [article, setArticle] = useState({});
     const [author, setAuthor] = useState({});
@@ -24,6 +28,41 @@ function ArticleItem() {
         })
         
     }, []);
+
+    const updateArticleVote = (direction, votes) => {
+        let votesInt = parseInt(votes)
+        setArticle(()=> {
+            return {...article, votes: 
+                direction === "increment" 
+                ?
+                votesInt + 1
+                :
+                votesInt - 1
+            
+            }
+        })
+        patchArticleVotes(article_id, direction)
+        .catch((err) => {
+            setErrors((previousState)=> {
+                return [
+                    ...previousState,
+                    {
+                        id: Date.now(),
+                        message: err.response.data.message,
+                        status: err.response.status
+                    }
+                    
+                ]
+            })
+            setArticle(()=> {
+                return {...article, votes: votesInt
+                
+                }
+            })
+
+        })
+
+    }
 
     if(isLoading === true) {
         return (
@@ -68,17 +107,9 @@ function ArticleItem() {
 
                             </section>
                         </div>
-                        <ul className="p-3 list-group">
-                            <li className="list-group-item p-3 d-flex">
+                        <ArticleVotes votes={article.votes} updateArticleVote={updateArticleVote} />
+                        <Comments articleId={article.article_id} />
 
-                                <p className="mb-0">Article votes:</p>
-
-                                <p>{article.votes}</p>
-
-                            </li>
-
-
-                        </ul>
                     </section>    
                     <section className="col-md-4 col-12">
                        <h2 className="mt-3">Related Articles</h2>
@@ -87,7 +118,6 @@ function ArticleItem() {
 
                 </div>
             </section>
-            <Comments articleId={article.article_id} />
     
         </article>
 
