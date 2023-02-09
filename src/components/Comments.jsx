@@ -7,7 +7,6 @@ import { ErrorContext } from "../errorContext";
 
 function Comments({articleId}) {
     const [comments, setComments] = useState([]);
-    console.log(comments);
     const [isLoading, setIsLoading] = useState(true);
     const [newCommentIsLoading, setNewCommentIsLoading] = useState(false);
     const [textInput, setTextInput] = useState("");
@@ -24,14 +23,12 @@ function Comments({articleId}) {
 
     const formHandler = (e) => {
         e.preventDefault();
-        console.log(textInput);
         const username = "happyamy2016";
         const body = textInput;
         setNewCommentIsLoading(true);
 
         postArticleComment(articleId,{username, body})
         .then((comment) => {
-            console.log(comment);
             setComments((previousState)=> {
                 return [
                     comment,
