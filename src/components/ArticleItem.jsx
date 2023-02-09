@@ -47,7 +47,7 @@ function ArticleItem() {
                 return [
                     ...previousState,
                     {
-                        id: previousState + 1,
+                        id: Date.now(),
                         message: err.response.data.message,
                         status: err.response.status
                     }
@@ -108,6 +108,8 @@ function ArticleItem() {
                             </section>
                         </div>
                         <ArticleVotes votes={article.votes} updateArticleVote={updateArticleVote} />
+                        <Comments articleId={article.article_id} />
+
                     </section>    
                     <section className="col-md-4 col-12">
                        <h2 className="mt-3">Related Articles</h2>
@@ -116,7 +118,6 @@ function ArticleItem() {
 
                 </div>
             </section>
-            <Comments articleId={article.article_id} />
     
         </article>
 
