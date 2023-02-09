@@ -45,8 +45,8 @@ export const patchArticleVotes = (articleId, direction) => {
     })
 }
 
-export const postArticleComment = (newComment) => {
-    return newsAPI.post(`articles/12/comments`, newComment)
+export const postArticleComment = (articleId, newComment) => {
+    return newsAPI.post(`articles/${articleId}/comments`, newComment)
     .then((res)=> {
         return res.data.comment;
     })
