@@ -9,6 +9,7 @@ function Comments({articleId}) {
     const [comments, setComments] = useState([]);
     console.log(comments);
     const [isLoading, setIsLoading] = useState(true);
+    const [newCommentIsLoading, setNewCommentIsLoading] = useState(false);
     const [textInput, setTextInput] = useState("");
     const {errors, setErrors} = useContext(ErrorContext);
 
@@ -26,6 +27,7 @@ function Comments({articleId}) {
         console.log(textInput);
         const username = "happyamy2016";
         const body = textInput;
+        setNewCommentIsLoading(true);
 
         postArticleComment({username, body})
         .then((comment) => {
@@ -37,6 +39,8 @@ function Comments({articleId}) {
                 ]
             });
             setTextInput("");
+            setNewCommentIsLoading(false);
+
             
         })
         .catch((err) => {
@@ -51,6 +55,8 @@ function Comments({articleId}) {
                     
                 ]
             })
+            setNewCommentIsLoading(false);
+
 
         })
         
@@ -82,7 +88,18 @@ function Comments({articleId}) {
                                 onChange={(e)=>setTextInput(e.target.value)}
                             />
                             <div className="form-btn-container">
-                                <Button className="mt-2" variant="outlined" type="submit">Post</Button>
+                                <Button className="mt-2" variant="outlined" type="submit" disabled={!/\S+/g.test(textInput)}>
+                                    {newCommentIsLoading === false 
+                                    ?
+                                    "Post"
+                                    :
+                                    <Box >
+                                        <CircularProgress sx={{width: "20px"}}  />
+                                    </Box>
+                                    }
+                                    
+                                
+                                </Button>
 
                             </div>
                         </form>
