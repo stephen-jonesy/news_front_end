@@ -7,30 +7,33 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useState } from "react";
 import '../scss/Articles.scss';
-import {FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
+import ArticlesForm from "./ArticlesForm";
 
 
 function Articles() {
+    let [searchParams, setSearchParams] = useSearchParams();
     const {articles, setArticles} = useContext(ArticlesContext)
     const [isLoading, setIsLoading] = useState(true);
-    const [sort, setSort] = useState('');
-    let [searchParams, setSearchParams] = useSearchParams();
-    const sortByQuery = searchParams.get('topic'); 
-    const handleChange = (event) => {
-        setSort(event.target.value);
-    };
+    const [sort, setSort] = useState('created_at');
+    const [order, setOrder] = useState('desc');
+    const topicQuery = searchParams.get('topic'); 
+    const sortByQuery = searchParams.get('sort_by'); 
 
     useEffect(() => {
-        getArticlesAPI(sortByQuery?.toLowerCase())
+        getArticlesAPI(topicQuery?.toLowerCase(), sortByQuery, order)
         .then((articles) => {
 
             setArticles(articles);
             setIsLoading(false);
+            if (!sortByQuery) {
+                setSort("created_at")
 
-        })
+            }
+
+        });
         
-    }, [sortByQuery]);
+    }, [topicQuery, sortByQuery, order]);
 
     if(isLoading === true) {
         return (
@@ -46,29 +49,16 @@ function Articles() {
             <div className="articles-header-container mb-3">
                 <h2 className="ms-3 mb-4 pt-2">
                     {
-                        sortByQuery
+                        topicQuery
                         ?
-                        `Articles by topic: ${sortByQuery}`
+                        `Articles by topic: ${topicQuery}`
                         :
                         "Latest articles"
-                    }
-                    
-                
+                    }                
                 </h2>
-                <FormControl sx={{ m: 1, minWidth: 120 }} size="small" className="me-3">
-                    <InputLabel id="demo-simple-select-label">Sort</InputLabel>
-                    <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={sort}
-                    label="Sort"
-                    onChange={handleChange}
-                    >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                </FormControl>
+                <ArticlesForm sort={sort} setSort={setSort} order={order} setOrder={setOrder} topicQuery={topicQuery} />
+
+
 
             </div>
 

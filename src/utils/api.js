@@ -6,11 +6,13 @@ const newsAPI = axios.create({
     header: { 'Content-type': 'application/json'}
 })
 
-export const getArticlesAPI = (topic) => {
+export const getArticlesAPI = (topic, sort_by, order) => {
 
     return newsAPI.get(`/articles`, {
         params: {
-            topic
+            topic,
+            sort_by,
+            order
         }
     }).then((res)=> {
         return res.data.articles;
