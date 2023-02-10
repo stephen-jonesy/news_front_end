@@ -59,3 +59,11 @@ export const getTopicCategories = () => {
         return res.data.topics;
     })
 }
+
+export const deleteCommentById = (commentId) => {
+    return newsAPI.delete(`/comments/${commentId}`)
+    .then((res)=> {
+        console.log(res);
+    })
+    
+}
