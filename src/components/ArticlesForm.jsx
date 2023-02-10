@@ -32,7 +32,7 @@ function ArticlesForm( {sort, setSort, order, setOrder, topicQuery}) {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={sort}
-                label="Sort"
+                label="sort"
                 onChange={handleSortChange}
                 sx={{width: "120px"}}
                 >

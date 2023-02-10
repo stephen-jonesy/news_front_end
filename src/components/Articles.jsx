@@ -15,7 +15,7 @@ function Articles() {
     let [searchParams, setSearchParams] = useSearchParams();
     const {articles, setArticles} = useContext(ArticlesContext)
     const [isLoading, setIsLoading] = useState(true);
-    const [sort, setSort] = useState('');
+    const [sort, setSort] = useState('created_at');
     const [order, setOrder] = useState('desc');
     const topicQuery = searchParams.get('topic'); 
     const sortByQuery = searchParams.get('sort_by'); 
@@ -27,7 +27,7 @@ function Articles() {
             setArticles(articles);
             setIsLoading(false);
             if (!sortByQuery) {
-                setSort("")
+                setSort("created_at")
 
             }
 

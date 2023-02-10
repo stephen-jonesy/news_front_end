@@ -1,0 +1,34 @@
+.article-card {
+    .card {
+        border: none !important;
+        &:hover {
+            .card-img-top {
+                transform: scale(1.02);
+            }
+        }
+    }
+    .card-body {
+        padding: 0 !important;
+    }
+    .card-img-top {
+        border-radius: 10px !important;
+    }
+
+    .img-card-container {
+        position: relative;
+    }
+
+    .vote-icon {
+        position: absolute;
+        right: 15px;
+        color: #fefefe;
+    }
+
+    .comment-icon {
+        position: absolute;
+        right: 18px;
+        top: 35px;
+        color: #fefefe;
+    }
+
+}

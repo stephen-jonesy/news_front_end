@@ -10,20 +10,6 @@
         }
 
     }
-    .card {
-        border: none !important;
-        &:hover {
-            .card-img-top {
-                transform: scale(1.02);
-            }
-        }
-    }
-    .card-body {
-        padding: 0 !important;
-    }
-    .card-img-top {
-        border-radius: 10px !important;
-    }
 
     .articles-header-container {
         display: flex;
