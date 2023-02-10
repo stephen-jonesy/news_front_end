@@ -1,9 +1,18 @@
 
 .header {
     background-color: white !important;
-
+    color: black;
     .nav-item {
-        margin-left: 10px;
+        margin-left: 10px !important;
+        .active {
+            color: black;
+            font-weight: 400;
+
+        }
+        font-weight: 300;
+        font-size: 18px;
+        margin: 0;
     }
+
 
 }
