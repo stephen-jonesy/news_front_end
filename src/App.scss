@@ -9,6 +9,9 @@ body {
 
 a {
   all: unset;
+  &:hover {
+    color: #717173;
+  }
 }
 
 a:hover {

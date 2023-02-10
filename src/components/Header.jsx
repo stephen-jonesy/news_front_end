@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import "../scss/Header.scss"
 import { getTopicCategories } from "../utils/api";
 
 function Header() {
+    let [searchParams, setSearchParams] = useSearchParams();
+    const topicQuery = searchParams.get('topic'); 
     const [showNav, setShowNav] = useState(false);
     const [topics, settopics] = useState([]);
     useEffect(() => {
@@ -22,9 +24,9 @@ function Header() {
             </button>
             <div className={`collapse navbar-collapse justify-content-end ${showNav === true ? "show" : ""}`}id="navbarNav">
                 <ul className="navbar-nav">
-                    <li className="nav-item"><Link  to={`/?topic=coding`}>Coding</Link></li>
-                    <li className="nav-item"><Link to={`/?topic=cooking`}>Cooking</Link></li>
-                    <li className="nav-item"><Link to={`/?topic=football`}>Football</Link></li>
+                    <li className="nav-item"><Link  to={`/?topic=coding`} className={`${topicQuery === "coding" ? "active" : ""}`}>Coding</Link></li>
+                    <li className="nav-item"><Link to={`/?topic=cooking`} className={`${topicQuery === "cooking" ? "active" : ""}`}>Cooking</Link></li>
+                    <li className="nav-item"><Link to={`/?topic=football`} className={`${topicQuery === "football" ? "active" : ""}`}>Football</Link></li>
                 </ul>
             </div>
             </div>

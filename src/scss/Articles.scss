@@ -3,9 +3,10 @@
     background-color: white;
     border-radius: 30px;
 
-    @media (min-width: 1200px) {
+    @media (max-width: 500px) {
         h2, .h2 {
-            font-size: 1.7rem;
+            font-size: 18px;
+            margin: auto 10px !important;
             color: rgb(35, 34, 34) !important;
         }
 
