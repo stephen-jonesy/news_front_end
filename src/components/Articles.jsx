@@ -9,6 +9,7 @@ import { useState } from "react";
 import '../scss/Articles.scss';
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import ArticlesForm from "./ArticlesForm";
+import { ErrorContext } from "../errorContext";
 
 
 function Articles() {
@@ -19,7 +20,8 @@ function Articles() {
     const [order, setOrder] = useState('desc');
     const topicQuery = searchParams.get('topic'); 
     const sortByQuery = searchParams.get('sort_by'); 
-
+    const {errors, setErrors} = useContext(ErrorContext);
+    
     useEffect(() => {
         getArticlesAPI(topicQuery?.toLowerCase(), sortByQuery, order)
         .then((articles) => {
@@ -31,7 +33,21 @@ function Articles() {
 
             }
 
-        });
+        })
+        .catch((err) => {
+            setErrors((previousState)=> {
+                return [
+                    ...previousState,
+                    {
+                        id: Date.now(),
+                        message: err.response.data.message,
+                        status: err.response.status
+                    }
+                    
+                ]
+            })
+        })
+
         
     }, [topicQuery, sortByQuery, order]);
 

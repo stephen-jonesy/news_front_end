@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getUserByNameAPI, getSingleArticleAPI, patchArticleVotes } from "../utils/api";
 import '../scss/ArticleItem.scss';
 import Comments from "./Comments";
@@ -10,7 +10,7 @@ import { ErrorContext } from "../errorContext";
 function ArticleItem() {
     const { article_id } = useParams(); 
     const {errors, setErrors} = useContext(ErrorContext);
-
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const [article, setArticle] = useState({});
     const [author, setAuthor] = useState({});
@@ -25,6 +25,23 @@ function ArticleItem() {
         .then((user) => {
             setAuthor(user);
             return user;
+        })
+        .catch((err) => {
+            if(err.response.status === 404) {
+                return navigate('/page_not_found');
+
+            }
+            setErrors((previousState)=> {
+                return [
+                    ...previousState,
+                    {
+                        id: Date.now(),
+                        message: err.response.data.message,
+                        status: err.response.status
+                    }
+                    
+                ]
+            })
         })
         
     }, []);
