@@ -11,6 +11,7 @@ function Comments({articleId}) {
     const [newCommentIsLoading, setNewCommentIsLoading] = useState(false);
     const [textInput, setTextInput] = useState("");
     const {errors, setErrors} = useContext(ErrorContext);
+ 
 
     useEffect(() => {
         getCommentsByArticle(articleId)
@@ -110,7 +111,7 @@ function Comments({articleId}) {
                         :
                         comments.map(comment => {
                             return (
-                                <Comment key={comment.comment_id} comment={comment} setIsLoading={setIsLoading}/>
+                                <Comment key={comment.comment_id} comment={comment} setIsLoading={setIsLoading} setComments={setComments} />
                             )
     
                         })
