@@ -34,7 +34,7 @@ function ArticleCards({article}) {
                             <MailIcon  />
                         </StyledBadge>
                     </IconButton>
-                    <Chip label={`Published: ${date}`} color="primary" variant="outlined" />
+                    <Chip label={`Published: ${date}`} color="primary" size="small" className="mt-2" sx={{fontSize: "10px"}}/>
 
 
                 </div>
