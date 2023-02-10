@@ -6,6 +6,7 @@ import { ErrorContext } from "../errorContext";
 
 function Comment({comment, setComments}) {
     const [user, setUser] = useState();
+    const [loginUser, setUserLoginUser] = useState("happyamy2016");
     const [isLoading, setIsLoading] = useState(true);
     const {errors, setErrors} = useContext(ErrorContext);
 
@@ -57,7 +58,7 @@ function Comment({comment, setComments}) {
                 <div className="comment-icon" style={{backgroundImage: `url(${user.avatar_url})`}}></div>
                 <h3 className="ms-2">{user.username}</h3>
                 {
-                    comment.author === "happyamy2016"
+                    comment.author === loginUser
                     ?
                     <Button style={{justifySelf: "end"}} onClick={() => clickHandler(comment.comment_id)}>x</Button>
                     :
