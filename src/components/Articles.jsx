@@ -7,8 +7,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useState } from "react";
 import '../scss/Articles.scss';
-import {FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
+import ArticlesForm from "./ArticlesForm";
 
 
 function Articles() {
@@ -19,25 +19,6 @@ function Articles() {
     const [order, setOrder] = useState('desc');
     const topicQuery = searchParams.get('topic'); 
     const sortByQuery = searchParams.get('sort_by'); 
-    const navigate = useNavigate();
-
-    const handleSortChange = (event) => {
-        setSort(event.target.value);
-        setOrder("desc");
-
-        return navigate(
-            topicQuery
-            ?
-            `/?topic=${topicQuery}&sort_by=${event.target.value}`
-            :
-            `/?sort_by=${event.target.value}`
-
-        );
-    };
-
-    const handleOrderChange = (event) => {
-        setOrder(event.target.value);
-    }
 
     useEffect(() => {
         getArticlesAPI(topicQuery?.toLowerCase(), sortByQuery, order)
@@ -73,60 +54,10 @@ function Articles() {
                         `Articles by topic: ${topicQuery}`
                         :
                         "Latest articles"
-                    }
-                    
-                
+                    }                
                 </h2>
-                <div className="d-flex">
-                <FormControl sx={{ m: 1, minWidth: 120 }} size="small" className="sort-form me-3">
-                    <div>
-                    <InputLabel id="demo-simple-select-label">Sort</InputLabel>
-                    <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={sort}
-                    label="Sort"
-                    onChange={handleSortChange}
-                    sx={{width: "120px"}}
-                    >
-                    <MenuItem value={"votes"} type="submit">
-                        Votes
-                    </MenuItem>
-                    <MenuItem value={"comment_count"}>
-                        Engagment
-                    </MenuItem>
-                    <MenuItem value={"created_at"}>
-                        date
-                    </MenuItem>
-                    </Select>
+                <ArticlesForm sort={sort} setSort={setSort} order={order} setOrder={setOrder} topicQuery={topicQuery} />
 
-                    </div>
-
-                    
-                </FormControl>
-                <FormControl sx={{ m: 1, minWidth: 120 }} size="small" className="order-form me-3 d-md-flex d-none ">
-                <div>
-                    <InputLabel id="demo-simple-select-label">Order</InputLabel>
-                    <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={order}
-                    label="order"
-                    onChange={handleOrderChange}
-                    sx={{width: "120px"}}
-                    >
-                    <MenuItem value={"desc"} type="submit">
-                        Decending
-                    </MenuItem>
-                    <MenuItem value={"asc"}>
-                        Ascending
-                    </MenuItem>
-                    </Select>
-
-                    </div>
-                </FormControl>
-
-                </div>
 
 
             </div>
