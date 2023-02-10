@@ -6,7 +6,6 @@ function ArticlesForm( {sort, setSort, order, setOrder, topicQuery}) {
     const navigate = useNavigate();
 
     const handleSortChange = (event) => {
-        console.log(event.target.value);
         setSort(event.target.value);
         setOrder("desc");
 
