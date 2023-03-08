@@ -7,13 +7,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useState } from "react";
 import '../scss/Articles.scss';
-import { useNavigate, useSearchParams, useLocation, useNavigation } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ArticlesForm from "./ArticlesForm";
 import { ErrorContext } from "../errorContext";
 import { Pagination } from "@mui/material";
 
 function Articles() {
-    let [searchParams, setSearchParams] = useSearchParams();
+    let [searchParams] = useSearchParams();
     const {articles, setArticles} = useContext(ArticlesContext);
     const [articlePages, setArticlePages] = useState(null);
     const [page, setPage] = useState(1);
