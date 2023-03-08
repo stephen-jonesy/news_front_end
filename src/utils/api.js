@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const newsAPI = axios.create({
-  baseURL: `http://localhost:9090/api`,
+  baseURL: `https://news-server-zfky.onrender.com/api`,
   header: { "Content-type": "application/json" },
 });
 

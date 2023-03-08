@@ -16,7 +16,6 @@ function Articles() {
     let [searchParams] = useSearchParams();
     const {articles, setArticles} = useContext(ArticlesContext);
     const [articlePages, setArticlePages] = useState(null);
-    const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
     const [sort, setSort] = useState('created_at');
     const [order, setOrder] = useState('desc');
@@ -27,7 +26,6 @@ function Articles() {
 
     const navigate = useNavigate();
     useEffect(() => {
-        setPage(1)
         getArticles(topicQuery, sortByQuery, order);
 
     }, [topicQuery, sortByQuery, order]);
