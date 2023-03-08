@@ -24,7 +24,7 @@ function Articles() {
     const sortByQuery = searchParams.get('sort_by'); 
     const pageQuery = searchParams.get('page'); 
     const {errors, setErrors} = useContext(ErrorContext);
-    console.log(articlePages);
+
     const navigate = useNavigate();
     useEffect(() => {
         setPage(1)
