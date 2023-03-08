@@ -26,6 +26,7 @@ function Articles() {
 
     const navigate = useNavigate();
     useEffect(() => {
+        setArticlePages(null)
         getArticles(topicQuery, sortByQuery, order);
 
     }, [topicQuery, sortByQuery, order]);
