@@ -7,29 +7,46 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { useState } from "react";
 import '../scss/Articles.scss';
-import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation, useNavigation } from "react-router-dom";
 import ArticlesForm from "./ArticlesForm";
 import { ErrorContext } from "../errorContext";
-
+import { Pagination } from "@mui/material";
 
 function Articles() {
     let [searchParams, setSearchParams] = useSearchParams();
-    const {articles, setArticles} = useContext(ArticlesContext)
+    const {articles, setArticles} = useContext(ArticlesContext);
+    const [articlePages, setArticlePages] = useState(null);
+    const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
     const [sort, setSort] = useState('created_at');
     const [order, setOrder] = useState('desc');
     const topicQuery = searchParams.get('topic'); 
     const sortByQuery = searchParams.get('sort_by'); 
+    const pageQuery = searchParams.get('page'); 
     const {errors, setErrors} = useContext(ErrorContext);
-    
+    console.log(articlePages);
+    const navigate = useNavigate();
     useEffect(() => {
-        getArticlesAPI(topicQuery?.toLowerCase(), sortByQuery, order)
-        .then((articles) => {
+        setPage(1)
+        getArticles(topicQuery, sortByQuery, order);
 
-            setArticles(articles);
+    }, [topicQuery, sortByQuery, order]);
+
+    useEffect(()=> {
+        getArticles(pageQuery);
+
+    }, [pageQuery]);
+    
+    const getArticles = () => {
+        getArticlesAPI(topicQuery?.toLowerCase(), sortByQuery, order, pageQuery)
+        .then((data) => {
+            setArticles(data.articles);
+            setArticlePages(parseInt(data.articles_count) / 12);
             setIsLoading(false);
+            window.scrollTo(0, 0);
+
             if (!sortByQuery) {
-                setSort("created_at")
+                setSort("created_at");
 
             }
 
@@ -47,9 +64,14 @@ function Articles() {
                 ]
             })
         })
+    }
 
-        
-    }, [topicQuery, sortByQuery, order]);
+    const handleChange = (event, value) => {
+        return navigate(
+            `?page=${value}`
+
+        );
+    }
 
     if(isLoading === true) {
         return (
@@ -92,6 +114,11 @@ function Articles() {
 
                 }
             </div>
+            {articlePages > 1 ?
+                <Pagination count={articlePages} onChange={handleChange} className="pagination mt-3" />
+                :
+                null
+            }
 
         </section>
      );
