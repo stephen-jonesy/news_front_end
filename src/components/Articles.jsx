@@ -13,7 +13,7 @@ import { ErrorContext } from "../errorContext";
 import { Pagination } from "@mui/material";
 
 function Articles() {
-    let [searchParams] = useSearchParams();
+    let [searchParams, setSearchParams] = useSearchParams();
     const {articles, setArticles} = useContext(ArticlesContext);
     const [articlePages, setArticlePages] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -23,19 +23,12 @@ function Articles() {
     const sortByQuery = searchParams.get('sort_by'); 
     const pageQuery = searchParams.get('page'); 
     const {errors, setErrors} = useContext(ErrorContext);
-    console.log(typeof pageQuery);
 
-    const navigate = useNavigate();
     useEffect(() => {
-        setArticlePages(null)
-        getArticles(topicQuery, sortByQuery, order);
+        getArticles();
 
-    }, [topicQuery, sortByQuery, order]);
+    }, [topicQuery, sortByQuery, order, pageQuery]);
 
-    useEffect(()=> {
-        getArticles(pageQuery);
-
-    }, [pageQuery]);
     
     const getArticles = () => {
         getArticlesAPI(topicQuery?.toLowerCase(), sortByQuery, order, pageQuery)
@@ -67,14 +60,8 @@ function Articles() {
     }
 
     const handleChange = (event, value) => {
-        return navigate(
-            topicQuery
-            ?
-            `?topic=${topicQuery}&page=${value}`
-            :
-            `?page=${value}`
-
-        );
+        searchParams.set('page', value)
+        setSearchParams(searchParams)
     }
 
     if(isLoading === true) {

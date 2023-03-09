@@ -16,7 +16,6 @@ function Comments({articleId}) {
     useEffect(() => {
         getCommentsByArticle(articleId)
         .then((commentsData) => {
-            console.log(commentsData);
             if (commentsData) {
                 setComments(commentsData);
 
