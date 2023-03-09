@@ -23,7 +23,7 @@ function Articles() {
     const sortByQuery = searchParams.get('sort_by'); 
     const pageQuery = searchParams.get('page'); 
     const {errors, setErrors} = useContext(ErrorContext);
-    console.log(pageQuery);
+    console.log(typeof pageQuery);
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -119,7 +119,7 @@ function Articles() {
                 }
             </div>
             {articlePages > 1 ?
-                <Pagination count={articlePages} onChange={handleChange} className="pagination mt-3" />
+                <Pagination count={articlePages} page={pageQuery ? parseInt(pageQuery) : 1} onChange={handleChange} className="pagination mt-3" />
                 :
                 null
             }
