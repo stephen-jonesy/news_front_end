@@ -23,6 +23,7 @@ function Articles() {
     const sortByQuery = searchParams.get('sort_by'); 
     const pageQuery = searchParams.get('page'); 
     const {errors, setErrors} = useContext(ErrorContext);
+    console.log(pageQuery);
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -40,7 +41,7 @@ function Articles() {
         getArticlesAPI(topicQuery?.toLowerCase(), sortByQuery, order, pageQuery)
         .then((data) => {
             setArticles(data.articles);
-            setArticlePages(parseInt(data.articles_count) / 12);
+            setArticlePages(Math.ceil(parseInt(data.articles_count) / 12));
             setIsLoading(false);
             window.scrollTo(0, 0);
 
@@ -67,6 +68,10 @@ function Articles() {
 
     const handleChange = (event, value) => {
         return navigate(
+            topicQuery
+            ?
+            `?topic=${topicQuery}&page=${value}`
+            :
             `?page=${value}`
 
         );
