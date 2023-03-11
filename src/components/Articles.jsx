@@ -74,7 +74,7 @@ function Articles() {
     }
     
     return ( 
-        <section className={`articles container p-3 mt-5`}>
+        <section className={`articles container p-3 my-5`}>
             <div className="articles-header-container mb-3">
                 <h2 className="ms-3 mb-4 pt-2">
                     {
