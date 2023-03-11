@@ -2,16 +2,26 @@
 .header {
     background-color: white !important;
     color: black;
+    font-family: 'Playball', cursive;
     .nav-item {
         margin-left: 10px !important;
         .active {
-            color: black;
+            color: #717173;
             font-weight: 400;
 
         }
         font-weight: 300;
-        font-size: 18px;
-        margin: 0;
+        font-size: 20px;
+        margin: 0 20px;
+    }
+    .navbar-brand {
+        font-size: 30px;
+    }
+
+    @media (min-width: 992px) {
+        .container {
+            padding: 0 32px;
+        }
     }
 
 

@@ -76,15 +76,13 @@ function Articles() {
     return ( 
         <section className={`articles container p-3 my-5`}>
             <div className="articles-header-container mb-3">
-                <h2 className="ms-3 mb-4 pt-2">
-                    {
-                        topicQuery
-                        ?
-                        `Articles by topic: ${topicQuery}`
-                        :
-                        "Latest articles"
-                    }                
-                </h2>
+                {
+                    topicQuery
+                    ?
+                    <h2 className="ms-3 mb-4 pt-2">Articles by topic:<span className="brand-text"> {topicQuery.charAt(0).toUpperCase() + topicQuery.slice(1)}</span></h2>
+                    :
+                    <h2 className="ms-3 mb-4 pt-2">Latest articles</h2>
+                }                
                 <ArticlesForm sort={sort} setSort={setSort} order={order} setOrder={setOrder} topicQuery={topicQuery} />
 
 
