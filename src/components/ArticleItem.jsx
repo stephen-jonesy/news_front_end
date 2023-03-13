@@ -109,7 +109,7 @@ function ArticleItem() {
             <section className="container">
             
                 <div className="row g-3">
-                    <section className="col-sm-8 col-12 ">
+                    <section className="col-md-8 col-12 ">
                         <div className="main-article-card card mt-3 p-3">
                             <h2 className="card-title ">{article.title}</h2>
                             <p className="card-text">{article.body}</p>
