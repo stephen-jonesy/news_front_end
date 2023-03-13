@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { deleteCommentById, getUserByNameAPI } from "../utils/api";
 import "../scss/Comment.scss";
 import { ErrorContext } from "../errorContext";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Comment({comment, setComments}) {
     const [user, setUser] = useState();
@@ -60,7 +61,7 @@ function Comment({comment, setComments}) {
                 {
                     comment.author === loginUser
                     ?
-                    <Button style={{justifySelf: "end"}} onClick={() => clickHandler(comment.comment_id)}>x</Button>
+                    <Button style={{justifySelf: "end"}} onClick={() => clickHandler(comment.comment_id)}><DeleteIcon/></Button>
                     :
                     ""
                 }
