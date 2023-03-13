@@ -15,13 +15,13 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
 }));
 
-function ArticleCards({article}) {
+function ArticleCards({article, isGridView}) {
 
     const date = new Date(article.created_at).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"}) 
 
 
     return ( 
-        <div className="article-card col-lg-3 col-md-4 col-12">
+        <div className={`article-card ${isGridView ? "col-lg-3 col-md-4 col-12" : "col-12"}`}>
             <Link to={`/article/${article.article_id}`} className="card" >
                 <div className="img-card-container">
                     <img src={article.article_img_url} className="card-img-top" alt={`${article.title}`} />

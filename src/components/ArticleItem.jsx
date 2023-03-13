@@ -1,11 +1,12 @@
 import { Box, CircularProgress } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getUserByNameAPI, getSingleArticleAPI, patchArticleVotes } from "../utils/api";
+import { getUserByNameAPI, getSingleArticleAPI, patchArticleVotes, getRelatedArticles } from "../utils/api";
 import '../scss/ArticleItem.scss';
 import Comments from "./Comments";
 import ArticleVotes from "./ArticleVotes";
 import { ErrorContext } from "../errorContext";
+import ArticleCards from "./ArticleCard";
 
 function ArticleItem() {
     const { article_id } = useParams(); 
@@ -14,18 +15,27 @@ function ArticleItem() {
     const [isLoading, setIsLoading] = useState(true);
     const [article, setArticle] = useState({});
     const [author, setAuthor] = useState({});
+    const [relatedArticles, setRelatedArticles] = useState([]);
 
     useEffect(() => {
+        setIsLoading(true);
+        window.scrollTo(0,0);
         getSingleArticleAPI(article_id)
         .then((article) => {
             setArticle(article);
+            return Promise.all([getUserByNameAPI(article.author), getRelatedArticles(article.topic)]);
+
+        })
+        .then(([user, relatedArticles]) => {
             setIsLoading(false);
-            return getUserByNameAPI(article.author)
-        })
-        .then((user) => {
             setAuthor(user);
-            return user;
+            setRelatedArticles(()=> {
+                return relatedArticles.filter(article => {
+                    console.log(article.article_id);
+                    return article.article_id !== parseInt(article_id)});
+            })
         })
+
         .catch((err) => {
             if(err.response.status === 404) {
                 return navigate('/page_not_found');
@@ -44,7 +54,7 @@ function ArticleItem() {
             })
         })
         
-    }, []);
+    }, [article_id]);
 
     const updateArticleVote = (direction, votes) => {
         let votesInt = parseInt(votes)
@@ -100,7 +110,7 @@ function ArticleItem() {
             
                 <div className="row g-3">
                     <section className="col-sm-8 col-12 ">
-                        <div className="card mt-3 p-3">
+                        <div className="main-article-card card mt-3 p-3">
                             <h2 className="card-title ">{article.title}</h2>
                             <p className="card-text">{article.body}</p>
                             <section className="card-details d-flex ">
@@ -129,7 +139,17 @@ function ArticleItem() {
 
                     </section>    
                     <section className="col-md-4 col-12">
-                       <h2 className="mt-3">Related Articles</h2>
+                        <div className="related-articles mt-3 p-3">
+                        <h2 >Related Articles</h2>
+                       <div className="row g-3">
+                       {
+                            relatedArticles.map((article => {
+                                return <ArticleCards key={article.article_id} article={article} isGridView={false}/>
+                            }))
+                        }
+                       </div>
+                        </div>
+
 
                     </section>
 

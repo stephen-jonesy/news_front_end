@@ -94,7 +94,7 @@ function Articles() {
                     articles
                     ?
                     articles.map((article => {
-                        return <ArticleCards key={article.article_id} article={article}/>
+                        return <ArticleCards key={article.article_id} article={article} isGridView={true}/>
                         
                      }))
                     :

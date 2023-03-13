@@ -9,11 +9,18 @@
         background-size: cover; 
     }
 
-    .card-title {
+    .main-article-card .card-title {
         font-family: 'Playball', cursive;
 
     }
     
+    .row {
+        justify-content: space-around !important;
+    }
+    .related-articles {
+        background-color: white;
+    border-radius: 30px;
+    }
     .author-image {
         height: 20px;
         width: 20px;

@@ -38,6 +38,25 @@ export const getCommentsByArticle = (articleId) => {
   });
 };
 
+export const getTopicCategories = () => {
+  return newsAPI.get(`topics`).then((res) => {
+    return res.data.topics;
+  });
+};
+
+export const getRelatedArticles = (topic) => {
+  return newsAPI
+    .get(`/articles`, {
+      params: {
+        topic: topic,
+        limit: "6",
+      },
+    })
+    .then((res) => {
+      return res.data.articles;
+    });
+};
+
 export const patchArticleVotes = (articleId, direction) => {
   const accumulator = direction === "decrement" ? -1 : 1;
   return newsAPI
@@ -53,12 +72,6 @@ export const postArticleComment = (articleId, newComment) => {
     .then((res) => {
       return res.data.comment;
     });
-};
-
-export const getTopicCategories = () => {
-  return newsAPI.get(`topics`).then((res) => {
-    return res.data.topics;
-  });
 };
 
 export const deleteCommentById = (commentId) => {
