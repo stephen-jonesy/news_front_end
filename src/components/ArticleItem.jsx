@@ -31,8 +31,8 @@ function ArticleItem() {
             setAuthor(user);
             setRelatedArticles(()=> {
                 return relatedArticles.filter(article => {
-                    console.log(article.article_id);
-                    return article.article_id !== parseInt(article_id)});
+                    return article.article_id !== parseInt(article_id)
+                });
             })
         })
 
