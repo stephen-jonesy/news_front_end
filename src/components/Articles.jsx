@@ -31,6 +31,8 @@ function Articles() {
 
     
     const getArticles = () => {
+        setIsLoading(true);
+
         getArticlesAPI(topicQuery?.toLowerCase(), sortByQuery, order, pageQuery)
         .then((data) => {
             setArticles(data.articles);
@@ -64,15 +66,6 @@ function Articles() {
         setSearchParams(searchParams)
     }
 
-    if(isLoading === true) {
-        return (
-            <Box sx={{ display: 'flex', width: "100%", minHeight: "300px"}}>
-              <CircularProgress sx={{margin: "auto"}} />
-            </Box>
-        ); 
-        
-    }
-    
     return ( 
         <section className={`articles container p-3 my-5`}>
             <div className="articles-header-container mb-3">
@@ -89,7 +82,14 @@ function Articles() {
 
             </div>
 
-            <div className="row g-3">
+            {isLoading && articles.length === 0
+                ? 
+                <Box sx={{ display: 'flex', width: "100%", minHeight: "300px"}}>
+                <CircularProgress sx={{margin: "auto"}} />
+                </Box>
+                :
+                <div>
+                <div className={`articles-list-container row g-3 ${isLoading && articles.length > 0 ? "show" : ""}`}>
                 {
                     articles
                     ?
@@ -102,12 +102,18 @@ function Articles() {
                     
 
                 }
-            </div>
-            {articlePages > 1 ?
-                <Pagination count={articlePages} page={pageQuery ? parseInt(pageQuery) : 1} onChange={handleChange} className="pagination mt-3" />
-                :
-                null
+                </div>
+                {articlePages > 1 ?
+                    <Pagination count={articlePages} page={pageQuery ? parseInt(pageQuery) : 1} onChange={handleChange} className="pagination mt-3" />
+                    :
+                    null
+                }
+                </div>
+
+            
             }
+
+
 
         </section>
      );

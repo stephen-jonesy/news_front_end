@@ -23,6 +23,12 @@
         height: 50px;
     }
 
+    .show {
+        opacity: 0.5;
+        pointer-events:none;
+
+    }
+
     .pagination {
         display: flex;
         justify-content: center;
